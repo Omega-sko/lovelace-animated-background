@@ -497,7 +497,7 @@ function renderBackgroundHTML() {
       
       .bg-wrap{
           position: fixed;
-          right: 0;
+          left: 0;
           top: 0;
           min-width: 100vw; 
           min-height: 100vh;

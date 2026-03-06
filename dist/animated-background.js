@@ -509,21 +509,14 @@ function renderBackgroundHTML() {
           pointer-events: none;
       }
 
+      #background-iframe{
+          pointer-events: none;
+      }
+
       hui-view-background{
           background:none;
       }
       `;
-
-      if (parseInt(current_config.opacity) > 0.0 && parseInt(current_config.opacity) < 100) {
-        Opacity = current_config.opacity;
-        style.innerHTML += `
-      hui-masonry-view,
-      hui-sections-view,
-      hui-panel-view {
-          opacity: 0.` + Opacity + `;
-      }
-      `;
-      }
 
       var transparent_body = document.createElement("style");
       transparent_body.innerHTML = ``;

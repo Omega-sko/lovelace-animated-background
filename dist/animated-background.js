@@ -495,10 +495,6 @@ function renderBackgroundHTML() {
           min-height: 100vh;    
       }
       
-      hui-view-background {
-          background: none;
-        }
-      
       .bg-wrap{
           position: fixed;
           right: 0;
@@ -506,20 +502,26 @@ function renderBackgroundHTML() {
           min-width: 100vw; 
           min-height: 100vh;
           z-index: -10;
-      }`;
+      }
+
+      hui-view-background{
+          background:none;
+      }
+
+      hui-masonry-view,
+      hui-sections-view,
+      hui-panel-view {
+          filter: opacity(0.` + Opacity + `);
+      }
+      `;
 
       if (parseInt(current_config.opacity) > 0.0) {
         Opacity = current_config.opacity;
       }
 
       var transparent_body = document.createElement("style");
-      transparent_body.innerHTML = `
-        hui-masonry-view,
-        hui-sections-view,
-        hui-panel-view {
-          filter: opacity(0.` + Opacity + `);
-        }
-      `;
+      transparent_body.innerHTML = ``;
+
 
 // transparent for top Pannel
       STATUS_MESSAGE (current_config.transparent_panel);

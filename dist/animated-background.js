@@ -535,21 +535,6 @@ function renderBackgroundHTML() {
       }
 
 // transparent for top Pannel
-      if (current_config.transparent_panel) {
-        var html_element = document.querySelector("html");
-        html_element.style.removeProperty('--app-header-background-color');
-
-        if (!document.getElementById('animated-bg-panel-style')) {
-          var ha_style = document.createElement('style');
-          ha_style.id = 'animated-bg-panel-style';
-          ha_style.innerHTML = `
-            html {
-              --primary-color: initial;
-            }`;
-          document.head.appendChild(ha_style);
-        }
-      }
-
       var div = document.createElement("div");
       div.id = "background-video";
       div.className = "bg-wrap";
@@ -575,6 +560,23 @@ function renderBackgroundHTML() {
         bg.srcdoc = source_doc;
         Previous_Url = state_url;
       }
+    }
+
+    // transparent for top Panel - evaluated on every render
+    if (current_config.transparent_panel) {
+      if (!document.getElementById('animated-bg-panel-style')) {
+        var ha_style = document.createElement('style');
+        ha_style.id = 'animated-bg-panel-style';
+        ha_style.innerHTML = `
+          html {
+            --app-header-background-color: transparent;
+          }`;
+        document.head.appendChild(ha_style);
+      }
+    }
+    else {
+      var panelStyle = document.getElementById('animated-bg-panel-style');
+      if (panelStyle) panelStyle.remove();
     }
   }
 }

@@ -562,25 +562,26 @@ function renderBackgroundHTML() {
       }
     }
 
-    // transparent for top Panel - evaluated on every render
-    if (current_config.transparent_panel) {
-      if (!Root.shadowRoot.getElementById('animated-bg-panel-style')) {
-        var ha_style = document.createElement('style');
-        ha_style.id = 'animated-bg-panel-style';
-        ha_style.innerHTML = `
-          .header {
-            background-color: transparent !important;
-          }
-          .toolbar {
-            background-color: transparent !important;
-          }`;
-        Root.shadowRoot.appendChild(ha_style);
-      }
+    }  // <-- this closes the if (state_url != "" && Hui) block
+
+  // transparent for top Panel - evaluated on every render
+  if (current_config.transparent_panel) {
+    if (!Root.shadowRoot.getElementById('animated-bg-panel-style')) {
+      var ha_style = document.createElement('style');
+      ha_style.id = 'animated-bg-panel-style';
+      ha_style.innerHTML = `
+        .header {
+          background-color: transparent !important;
+        }
+        .toolbar {
+          background-color: transparent !important;
+        }`;
+      Root.shadowRoot.appendChild(ha_style);
     }
-    else {
-      var panelStyle = Root.shadowRoot.getElementById('animated-bg-panel-style');
-      if (panelStyle) panelStyle.remove();
-    }
+  }
+  else {
+    var panelStyle = Root.shadowRoot.getElementById('animated-bg-panel-style');
+    if (panelStyle) panelStyle.remove();
   }
 }
 

@@ -15,7 +15,7 @@ animated_background:
 
 Sorry but now case sensitive (only lower)
 
-## ADD CHAGES FOR HOMEASSISTANT VERSION 2023.04.0
+## ADD CHAGES FOR HOMEASSISTANT VERSION 2023.04.0 - 2026.3.0
 
 - Fixed errors in new version Home Assistant. (Thanks [dreimer1986/lovelace-animated-background](https://github.com/dreimer1986/lovelace-animated-background.git)
 - Added transparent mode for cards.

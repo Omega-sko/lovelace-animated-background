@@ -565,7 +565,9 @@ function renderBackgroundHTML() {
     }  // <-- this closes the if (state_url != "" && Hui) block
 
   // transparent for top Panel - evaluated on every render
+  console.log("AB: transparent_panel check, value:", current_config.transparent_panel, "Hui:", !!Hui, "Hui.shadowRoot:", !!(Hui && Hui.shadowRoot));
   if (current_config.transparent_panel) {
+    console.log("AB: injecting panel style");
     if (!Hui.shadowRoot.getElementById('animated-bg-panel-style')) {
       var ha_style = document.createElement('style');
       ha_style.id = 'animated-bg-panel-style';

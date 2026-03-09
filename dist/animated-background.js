@@ -344,8 +344,9 @@ function getEntityState(entity) {
 function renderBackgroundHTML() {
   Opacity = 99;
   var current_config = currentConfig();
-  if (current_config && parseInt(current_config.opacity) > 0) {
-    Opacity = current_config.opacity;
+  var resolved_opacity = current_config && current_config.opacity !== undefined ? current_config.opacity : (Animated_Config ? Animated_Config.opacity : 99);
+  if (parseInt(resolved_opacity) > 0) {
+    Opacity = resolved_opacity;
   }
   var state_url = "";
   var temp_enabled = true;

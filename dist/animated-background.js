@@ -344,8 +344,9 @@ function getEntityState(entity) {
 function renderBackgroundHTML() {
   Opacity = 99;
   var current_config = currentConfig();
-  if (current_config && parseInt(current_config.opacity) > 0) {
-    Opacity = current_config.opacity;
+  var resolved_opacity = current_config && current_config.opacity !== undefined ? current_config.opacity : (Animated_Config ? Animated_Config.opacity : 99);
+  if (parseInt(resolved_opacity) > 0) {
+    Opacity = resolved_opacity;
   }
   var state_url = "";
   var temp_enabled = true;
@@ -535,21 +536,6 @@ function renderBackgroundHTML() {
       }
 
 // transparent for top Pannel
-      if (current_config.transparent_panel) {
-        var html_element = document.querySelector("html");
-        html_element.style.removeProperty('--app-header-background-color');
-
-        if (!document.getElementById('animated-bg-panel-style')) {
-          var ha_style = document.createElement('style');
-          ha_style.id = 'animated-bg-panel-style';
-          ha_style.innerHTML = `
-            html {
-              --primary-color: initial;
-            }`;
-          document.head.appendChild(ha_style);
-        }
-      }
-
       var div = document.createElement("div");
       div.id = "background-video";
       div.className = "bg-wrap";
@@ -576,6 +562,29 @@ function renderBackgroundHTML() {
         Previous_Url = state_url;
       }
     }
+
+    }  // <-- this closes the if (state_url != "" && Hui) block
+
+  // transparent for top Panel - evaluated on every render
+  // Fall back to root Animated_Config for top-level settings not present in group/view configs
+  var transparent_panel = current_config.transparent_panel !== undefined ? current_config.transparent_panel : (Animated_Config ? Animated_Config.transparent_panel : false);
+  if (transparent_panel) {
+    if (!Hui.shadowRoot.getElementById('animated-bg-panel-style')) {
+      var ha_style = document.createElement('style');
+      ha_style.id = 'animated-bg-panel-style';
+      ha_style.innerHTML = `
+        .header {
+          background-color: transparent !important;
+        }
+        .toolbar {
+          background-color: transparent !important;
+        }`;
+      Hui.shadowRoot.appendChild(ha_style);
+    }
+  }
+  else {
+    var panelStyle = Hui.shadowRoot.getElementById('animated-bg-panel-style');
+    if (panelStyle) panelStyle.remove();
   }
 }
 
@@ -686,8 +695,10 @@ function cleanupDOM() {
     var oldStyles = Root.shadowRoot.querySelectorAll('style');
     oldStyles.forEach(function(s) { s.remove(); });
   }
-  var panelStyle = document.getElementById('animated-bg-panel-style');
-  if (panelStyle) panelStyle.remove();
+  if (Hui && Hui.shadowRoot) {
+    var panelStyle = Hui.shadowRoot.getElementById('animated-bg-panel-style');
+    if (panelStyle) panelStyle.remove();
+  }
 }
 
 //main function
